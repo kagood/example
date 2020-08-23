@@ -1,0 +1,67 @@
+---
+title: "Learning R"
+author: "Kayla Good"
+date: ""
+output:
+  bookdown::pdf_book:
+    toc: true
+    toc_depth: 4
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Heading
+
+Here's some text.
+
+```{r load libraries, include=F, message=F}
+library(ggthemes)
+library(tidyverse)
+```
+
+```{r}
+# set default ggtheme
+theme_set(theme_classic())
+```
+
+```{r}
+cutie_data = tibble(sub_ID = c(1, 2, 3, 4, 5),
+              rating = c(1, 2, 3, 4, 5))
+```
+
+```{r}
+ggplot(data = cutie_data, 
+       mapping = aes(x = sub_ID, 
+                     y = rating)) + 
+  geom_line(color = "blue",
+            alpha = 0.5) + 
+  geom_point() +
+  labs(x = "Subject ID",
+       y = "Rating",
+       title = "Our Plot",
+       caption = "Source: Cutie")
+```
+
+```{r}
+cutie_data_updated %>% 
+  ggplot(mapping = aes(x = sub_ID, 
+                       y = rating,
+                       color = group)) + 
+  geom_line() + 
+  labs(x = "Subject ID",
+       y = "Rating",
+       title = "Our Plot",
+       caption = "Source: Cutie")
+```
+
+```{r}
+cutie_data_updated = cutie_data %>% 
+  mutate(z = c(2, 4, 6, 8, 10),
+         group = ifelse(z <= 6, 
+                        "blue", 
+                        "green"))
+```
+
